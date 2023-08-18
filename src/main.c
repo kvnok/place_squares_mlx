@@ -26,6 +26,8 @@ void	key_activation(mlx_key_data_t keydata, void *param)
 			clean_memory(data, 2);
 	}
 	//there should be a way for this to be more smooth
+	//like a way for the player to start moving straight away
+	//no delay, nothing, nil, nada
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
 		data->image_player->instances[0].y -= (TS / 4);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
@@ -63,6 +65,4 @@ int main(int argc, char **argv)
 
 /*
 change TS to 32 and pngs to 32 aswell
-put print statements to DEBUG
-MLX42: LodePNG: failed to open file for reading
 */
