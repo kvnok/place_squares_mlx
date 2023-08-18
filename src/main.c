@@ -25,6 +25,15 @@ void	key_activation(mlx_key_data_t keydata, void *param)
 		if (keydata.key == MLX_KEY_ESCAPE)
 			clean_memory(data, 2);
 	}
+	//there should be a way for this to be more smooth
+	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+		data->image_player->instances[0].y -= (TS / 4);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+		data->image_player->instances[0].x -= (TS / 4);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
+		data->image_player->instances[0].y += (TS / 4);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+		data->image_player->instances[0].x += (TS / 4);
 }
 
 int main(int argc, char **argv)
@@ -33,7 +42,11 @@ int main(int argc, char **argv)
 
 	if (argc == 1)
 		return 1;
-	map_parser(argv[1], &data.map);
+	if (map_parser(argv[1], &data) == 1)
+	{
+		printf("map_parser ERROR\n");
+		return 1;
+	}
 	data.map_w = int_strlen(data.map[0]);
 	data.map_h = map_height(data.map);
 	data.mlx = mlx_init(data.map_w * TS, data.map_h * TS, "2D_GAME", false);

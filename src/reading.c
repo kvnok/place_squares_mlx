@@ -57,7 +57,29 @@ int		reading(int fd, char **buffer, char **line)
 	return 0;
 }
 
-int map_parser(char *str, char ***map)
+int player_check(t_data *data, char *line)
+{
+	int i;
+	int flag;
+
+	i = 0;
+	flag = -1;
+	while(line[i] != '\0')
+	{
+		if (line[i] == 'P')
+		{
+			if (flag != -1)
+			{
+				return -1;
+			}
+			flag = i;
+		}
+		i++;
+	}
+	return flag;
+}
+
+int map_parser(char *str, t_data *data)
 {
 	int			fd;
 	char		*buffer;
@@ -74,13 +96,19 @@ int map_parser(char *str, char ***map)
 		return 1;
 	}
 	// printf("total : \n%s\n", line);
-	*map = ft_split(line, '\n');
+	data->map = ft_split(line, '\n');
+	data->player_i = player_check(data, line);
+	if (data->player_i == -1)
+	{
+		cleanup(&line, &buffer);
+		return 1;
+	}
 	cleanup(&line, &buffer);
-	if (*map == NULL)
+	if (data->map == NULL)
 	{
 		return 1;
 	}
-	print_arr(*map);
-	// free_strings(*map);
+	print_arr(data->map);
+	// free_strings(data->map);
 	return 0;
 }

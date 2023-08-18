@@ -21,11 +21,16 @@ typedef struct s_data
 	mlx_t			*mlx;
 	mlx_texture_t	*texture_floor;
 	mlx_texture_t	*texture_wall;
+	mlx_texture_t	*texture_player;
 	mlx_image_t		*image_floor;
 	mlx_image_t		*image_wall;
+	mlx_image_t		*image_player;
 	char			**map;
 	int				map_w;
 	int				map_h;
+	int				p_x;
+	int				p_y;
+	int				player_i;
 }	t_data;
 
 //ft_split.c
@@ -41,7 +46,8 @@ void	print_arr(char **arr);
 //reading.c
 char	*strjoin_free(char **s1, char **s2);
 int		reading(int fd, char **buffer, char **line);
-int		map_parser(char *str, char ***map);
+int		player_check(t_data *data, char *line);
+int		map_parser(char *str, t_data *data);
 
 //cleaning.c
 void	free_maps(t_data *data);

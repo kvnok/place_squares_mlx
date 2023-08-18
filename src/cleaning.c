@@ -6,7 +6,7 @@
 /*   By: kkroon <kkroon@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/09 17:29:57 by kkroon        #+#    #+#                 */
-/*   Updated: 2023/08/16 22:18:04 by kkroon        ########   odam.nl         */
+/*   Updated: 2023/08/18 18:49:31 by kkroon        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	free_maps(t_data *data)
 	i = 0;
 	while (data->map[i] != NULL)
 	{
-		free(data->map[i]);
+		if(data->map[i] != NULL)
+			free(data->map[i]);
 		i++;
 	}
 	if (data->map != NULL)
