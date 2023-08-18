@@ -12,6 +12,21 @@ int		map_height(char **arr)
 	return i;
 }
 
+/*
+listening for key input
+*/
+void	key_activation(mlx_key_data_t keydata, void *param)
+{
+	t_data	*data;
+
+	data = param;
+	if (keydata.action == MLX_PRESS)
+	{
+		if (keydata.key == MLX_KEY_ESCAPE)
+			clean_memory(data, 2);
+	}
+}
+
 int main(int argc, char **argv)
 {
 	t_data data;
@@ -27,7 +42,7 @@ int main(int argc, char **argv)
 	load_pngs(&data);
 	convert_textures(&data);
 	create_map_images(&data);
-	// mlx_key_hook(data.mlx, &key_activation, &data);
+	mlx_key_hook(data.mlx, &key_activation, &data);
 	mlx_loop(data.mlx);
 	clean_memory(&data, 2);
 	return 0;
